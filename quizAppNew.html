@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title="Quiz App">
+        <div class="slds-p-around_medium  slds-text-align_center">
+            <lightning-button label="Start Quiz" variant="brand" disabled={hideStartButton} onclick={startQuizHandler}>
+            </lightning-button>
+        </div>
+            <template if:true={hideStartButton}>
+                <form>
+                    <template if:true={isSubmitted}>
+                        <div class={isScoredFull}>{correctAnswers} scored out of {selectedQuestions.length}</div>
+                    </template>
+                    <template for:each={selectedQuestions} for:item="question">
+                        <div class="slds-p-around_medium slds-text-align_left" key={question.id}>
+                            <div><strong>Question - {question.question}</strong></div>
+                            <div class="slds-grid slds-gutters slds-m-round_medium">
+                                <div class="slds-col"> 
+                                    <input type="radio" name={question.id} value="a" onchange={changeHandler}/>
+                                    {question.options.a}
+                                </div>
+                                <div class="slds-col"> 
+                                    <input type="radio" name={question.id} value="b" onchange={changeHandler}/>
+                                    {question.options.b}
+                                </div>
+                                <div class="slds-col"> 
+                                    <input type="radio" name={question.id} value="c" onchange={changeHandler}/>
+                                    {question.options.c}
+                                </div>
+                                <div class="slds-col"> 
+                                    <input type="radio" name={question.id} value="d" onchange={changeHandler}/>
+                                    {question.options.d}
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- <div class="slds-p-around_medium slds-grid"> -->
+                        <lightning-button label="Submit" type = "submit" class="slds-p-around_small" variant="brand" disabled={notAllSelected} onclick={handleSubmit}></lightning-button>
+                        <!-- <div class={reshuffle}> -->
+                        <lightning-button label="Reshuffle" type = "reset"  variant="brand" onclick={reshuffleHanlder}></lightning-button>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    <div class="slds-p-around_medium  slds-text-align_center">
+                        <lightning-button label="Exit Quiz" variant="brand" type = "exit" disabled={hideExitButton} onclick={exitQuizHandler}></lightning-button>
+                    </div>
+                </form>
+            </template>
+
+    </lightning-card>
+</template>
